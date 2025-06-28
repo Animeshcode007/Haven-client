@@ -126,7 +126,6 @@ const UserProfilePage = () => {
       setFriendshipActionLoading(false);
     }
   };
-
   const handlePostUpdated = (updatedPost) =>
     setPosts((prev) =>
       prev.map((p) => (p._id === updatedPost._id ? updatedPost : p))
@@ -309,7 +308,6 @@ const UserProfilePage = () => {
                   post,
                   onPostUpdate: handlePostUpdated,
                   onPostDelete: handlePostDeleted,
-                  onOpenEditModal: openEditModalHandler,
                 };
                 if (posts.length === index + 1 && hasMorePosts) {
                   return (

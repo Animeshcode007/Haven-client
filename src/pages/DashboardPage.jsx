@@ -92,7 +92,7 @@ const DashboardPage = () => {
   };
 
   const handleOpenCreateModal = () => {
-    console.log("DashboardPage: Opening create post modal..."); 
+    console.log("DashboardPage: Opening create post modal...");
     setIsCreatePostModalOpen(true);
   };
 
@@ -193,6 +193,13 @@ const DashboardPage = () => {
           </div>
         )}
       </div>
+      {isCreatePostModalOpen && (
+        <CreatePostModal
+          isOpen={isCreatePostModalOpen}
+          onClose={() => setIsCreatePostModalOpen(false)}
+          onPostCreated={handlePostCreated}
+        />
+      )}
       {isEditPostModalOpen &&
         postToEdit &&
         console.log("DashboardPage: Rendering EditPostModal with props:", {
