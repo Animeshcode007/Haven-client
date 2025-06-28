@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import MainLayout from "../layouts/MainLayout";
 import PostCard from "../components/post/PostCard";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
+import EditPostModal from "../components/post/EditPostModal";
 import {
   UserPlusIcon,
   UserMinusIcon,
@@ -30,6 +31,8 @@ const UserProfilePage = () => {
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [error, setError] = useState("");
   const [friendshipActionLoading, setFriendshipActionLoading] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [postToEdit, setPostToEdit] = useState(null);
 
   useEffect(() => {
     if (!profileUserId) return;
@@ -130,6 +133,10 @@ const UserProfilePage = () => {
     setPosts((prev) =>
       prev.map((p) => (p._id === updatedPost._id ? updatedPost : p))
     );
+  if (isEditModalOpen) {
+    setIsEditModalOpen(false);
+    setPostToEdit(null);
+  }
   const handlePostDeleted = (deletedPostId) =>
     setPosts((prev) => prev.filter((p) => p._id !== deletedPostId));
 
@@ -153,7 +160,15 @@ const UserProfilePage = () => {
     );
 
   const isOwnProfile = currentUser?._id === profileUser._id;
+  const openEditModalHandler = (post) => {
+    setPostToEdit(post);
+    setIsEditModalOpen(true);
+  };
 
+  const closeEditModalHandler = () => {
+    setIsEditModalOpen(false);
+    setPostToEdit(null);
+  };
   const FriendActionButton = () => {
     if (isOwnProfile) return null;
     switch (profileUser.friendshipStatus) {
@@ -308,6 +323,7 @@ const UserProfilePage = () => {
                   post,
                   onPostUpdate: handlePostUpdated,
                   onPostDelete: handlePostDeleted,
+                  onOpenEditModal: openEditModalHandler,
                 };
                 if (posts.length === index + 1 && hasMorePosts) {
                   return (
@@ -332,6 +348,14 @@ const UserProfilePage = () => {
           )}
         </div>
       </div>
+      {postToEdit && (
+        <EditPostModal
+          isOpen={isEditModalOpen}
+          onClose={closeEditModalHandler}
+          postToEdit={postToEdit}
+          onPostUpdated={handlePostUpdated}
+        />
+      )}
     </MainLayout>
   );
 };
