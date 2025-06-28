@@ -91,6 +91,11 @@ const DashboardPage = () => {
     setPostToEdit(null);
   };
 
+  const handleOpenCreateModal = () => {
+    console.log("DashboardPage: Opening create post modal..."); 
+    setIsCreatePostModalOpen(true);
+  };
+
   const openEditModalHandler = (post) => {
     setPostToEdit(post);
     setIsEditPostModalOpen(true);
@@ -108,7 +113,7 @@ const DashboardPage = () => {
   }, [postToEdit, isEditPostModalOpen]);
 
   return (
-    <MainLayout onOpenCreatePostModal={() => setIsCreatePostModalOpen(true)}>
+    <MainLayout onOpenCreatePostModal={handleOpenCreateModal}>
       <div className="container mx-auto px-4 py-8 dashboard-bg min-h-[calc(100vh-4rem)]">
         {" "}
         {error && (
