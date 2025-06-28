@@ -129,14 +129,13 @@ const UserProfilePage = () => {
       setFriendshipActionLoading(false);
     }
   };
-  const handlePostUpdated = (updatedPost) =>
+  const handlePostUpdated = (updatedPost) => {
     setPosts((prev) =>
       prev.map((p) => (p._id === updatedPost._id ? updatedPost : p))
     );
-  if (isEditModalOpen) {
     setIsEditModalOpen(false);
     setPostToEdit(null);
-  }
+  };
   const handlePostDeleted = (deletedPostId) =>
     setPosts((prev) => prev.filter((p) => p._id !== deletedPostId));
 
