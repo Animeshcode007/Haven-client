@@ -309,6 +309,7 @@ const UserProfilePage = () => {
                   post,
                   onPostUpdate: handlePostUpdated,
                   onPostDelete: handlePostDeleted,
+                  onOpenEditModal: openEditModalHandler,
                 };
                 if (posts.length === index + 1 && hasMorePosts) {
                   return (
